@@ -40,13 +40,13 @@ class RepliesController < ApplicationController
 
     begin
       Reply.transaction do
-        @reply.save!
-        @reply.notified_users.each do |user|
-          mail = NotificationMailer.new_reply(@reply, user)
+        # @reply.save!
+        # @reply.notified_users.each do |user|
+        #   mail = NotificationMailer.new_reply(@reply, user)
 
-          mail.deliver
-          @reply.message_id = mail.message_id
-        end
+        #   mail.deliver
+        #   @reply.message_id = mail.message_id
+        # end
 
         @reply.save!
         redirect_to @reply.ticket, notice: I18n::translate(:reply_added)
