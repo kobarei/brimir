@@ -59,19 +59,19 @@ class TicketsController < ApplicationController
       if @ticket.update_attributes(ticket_params)
 
         # assignee set and not same as user who modifies
-        if !@ticket.assignee.nil? && @ticket.assignee.id != current_user.id
+        # if !@ticket.assignee.nil? && @ticket.assignee.id != current_user.id
 
-          if @ticket.previous_changes.include? :assignee_id
-            TicketMailer.notify_assigned(@ticket).deliver
+        #   if @ticket.previous_changes.include? :assignee_id
+        #     TicketMailer.notify_assigned(@ticket).deliver
 
-          elsif @ticket.previous_changes.include? :status
-            TicketMailer.notify_status_changed(@ticket).deliver
+        #   elsif @ticket.previous_changes.include? :status
+        #     TicketMailer.notify_status_changed(@ticket).deliver
 
-          elsif @ticket.previous_changes.include? :priority
-            TicketMailer.notify_priority_changed(@ticket).deliver
-          end
+        #   elsif @ticket.previous_changes.include? :priority
+        #     TicketMailer.notify_priority_changed(@ticket).deliver
+        #   end
 
-        end
+        # end
 
         format.html {
           redirect_to @ticket, notice: I18n::translate(:ticket_updated)
@@ -113,7 +113,7 @@ class TicketsController < ApplicationController
 
   def create
     if params[:format] == 'json'
-      @ticket = TicketMailer.receive(params[:message])
+      # @ticket = TicketMailer.receive(params[:message])
     else
       @ticket = Ticket.new(ticket_params)
     end
@@ -130,15 +130,15 @@ class TicketsController < ApplicationController
       # @ticket might be a Reply when via json post
       if @ticket.is_a?(Ticket)
         if @ticket.assignee.nil?
-          @ticket.notified_users.each do |user|
-            mail = NotificationMailer.new_ticket(@ticket, user)
-            mail.deliver
-            @ticket.message_id = mail.message_id
-          end
+          # @ticket.notified_users.each do |user|
+          #   mail = NotificationMailer.new_ticket(@ticket, user)
+          #   mail.deliver
+          #   @ticket.message_id = mail.message_id
+          # end
 
           @ticket.save
         else
-          TicketMailer.notify_assigned(@ticket).deliver
+          # TicketMailer.notify_assigned(@ticket).deliver
         end
       end
     end
@@ -151,7 +151,7 @@ class TicketsController < ApplicationController
           if current_user.nil?
             return render text: I18n::translate(:ticket_added)
           else
-            redirect_to ticket_url(@ticket), notice: I18n::translate(:ticket_added)
+            redirect_to ticket_path(@ticket), notice: I18n::translate(:ticket_added)
           end
 
         else
