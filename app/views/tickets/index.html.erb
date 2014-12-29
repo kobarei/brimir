@@ -36,12 +36,12 @@
 <table class="full">
   <tbody>
     <% @tickets.each do |ticket| %>
-      <tr data-ticket-url="<%= ticket_url(ticket) %>">
+      <tr data-ticket-url="<%= ticket_path(ticket) %>">
 
         <td class="priority-<%= ticket.priority %> table-nowrap">
           <span class="block"><%= ticket.user.email %></span>
           <% if !ticket.subject.nil? %>
-            <a href="<%= ticket_url(ticket) %>">
+            <a href="<%= ticket_path(ticket) %>">
               <strong><%= ticket.subject %></strong>
             </a>
           <% else %>

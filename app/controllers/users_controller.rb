@@ -42,7 +42,7 @@ class UsersController < ApplicationController
       if current_user.agent?
         redirect_to users_url, notice: I18n::translate(:settings_saved)
       else
-        redirect_to tickets_url, notice: I18n::translate(:settings_saved)
+        redirect_to tickets_path, notice: I18n::translate(:settings_saved)
       end
 
     else

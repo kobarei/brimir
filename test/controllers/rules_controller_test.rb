@@ -112,6 +112,6 @@ class UsersControllerTest < ActionController::TestCase
     refute_equal 'test@test.test', @bob.email
     assert_equal 0, @bob.labels.count
 
-    assert_redirected_to tickets_url
+    assert_redirected_to tickets_path
   end
 end

@@ -116,7 +116,7 @@ class TicketsControllerTest < ActionController::TestCase
             subject: @ticket.subject,
         }
 
-        assert_redirected_to ticket_url(assigns(:ticket))
+        assert_redirected_to ticket_path(assigns(:ticket))
       end
 
       refute_equal 0, assigns(:ticket).notified_users.count
